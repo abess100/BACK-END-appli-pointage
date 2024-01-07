@@ -18,7 +18,8 @@ app.set('views')
 
 app.use(express.json())
 app.use(parser.urlencoded({ extended: false }))
-// app.use(cors)
+
+app.use(cors())
 app.use(session({
     name: 'session_pointage',
     resave: true,
@@ -38,6 +39,8 @@ app.get('/', (req, res) => {
 app.use('/admin', require('./routes/connexion-admin.routes'));
 app.use('/apprenant', require('./routes/apprenant.routes'))
 app.use('/pointage', require('./routes/pointage.routes'))
+
+
 app.listen(port, () => {
     console.log('le serveur tourne au port ' + port);
 })

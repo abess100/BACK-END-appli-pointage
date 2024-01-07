@@ -5,7 +5,23 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
     connexion.query('select * from apprenant', (error, data) => {
-        console.log(data);
+        res.send(data)
+    })
+})
+
+
+router.get('/dashbord', (req, res) => {
+    connexion.query('select (select count(*) from apprenant) as apprenant;', (error, data) => {
+        res.send(data)
+    })
+})
+
+
+ //get  apprenant unique
+router.get('/:id_apprenant', (req, res) => {
+    const id_apprenant = req.params.id_apprenant
+    connexion.query('select * from apprenant where id_apprenant = ?',[id_apprenant],(error, data) => {
+        console.log(id_apprenant);
         res.send(data)
     })
 })
@@ -25,7 +41,7 @@ router.post('/', (req, res) => {
 router.put('/:id_apprenant', (req, res) => {
     const id_apprenant = req.params.id_apprenant
     const { id_unique, nom, prenom, referentiel } = req.body
-    connexion.query('update apprenant set id_unique = ?, nom =? , prenom = ?, referentiel = ?where id_apprenant =?', [id_unique, nom, prenom, referentiel, id_apprenant], (error, data) => {
+    connexion.query('update apprenant set id_unique = ?, nom =? , prenom = ?, referentiel = ? where id_apprenant =?', [id_unique, nom, prenom, referentiel, id_apprenant], (error, data) => {
         if (error) {
             res.send('erreur de mise à jour de l\'apprenant');
         } else {

@@ -20,21 +20,20 @@ router.post('/connexion', (req, res) => {
                 if (data[0].pwd == pwd) {
 
                     req.session.id_admin = data[0].id_admin
-                    res.send('passé à la page suivante');
-                    // console.log(req.session.id_admin);
+                    res.send('/');
 
                 } else {
 
-                    res.send('mot de passe incorrect ');
+                    res.json({ message:'mot de passe incorrect '});
                 }
             } else {
 
-                res.send('nom incorrect')
+                res.jon({message:'nom incorrect'})
 
             }
         })
     } else {
-        res.send('remplir tous les champs ')
+        res.json({message:'remplir tous les champs '})
     }
 })
 
