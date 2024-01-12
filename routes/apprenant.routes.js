@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
        if(error){
             console.log(error);
        }else{
+            res.send('apprenant')
            res.json(data)
        }
     })
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.get('/dashbord', (req, res) => {
     connexion.query('select (select count(*) from apprenant) as apprenant;', (error, data) => {
-        res.send(data)
+        res.json(data)
     })
 })
 
@@ -26,7 +27,7 @@ router.get('/:id_apprenant', (req, res) => {
     const id_apprenant = req.params.id_apprenant
     connexion.query('select * from apprenant where id_apprenant = ?',[id_apprenant],(error, data) => {
         console.log(id_apprenant);
-        res.send(data)
+        res.json(data)
     })
 })
 
