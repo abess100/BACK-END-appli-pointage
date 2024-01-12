@@ -5,7 +5,7 @@ const connexion = require('../controller/DB')
 
 router.get('/', (req, res) => {
     connexion.query('select * from admin', (error, data) => {
-        console.log(data);
+        res.json(data);
         res.send('bonjour  Mr admin')
     })
 })

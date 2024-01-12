@@ -3,13 +3,13 @@ const connexion = require('../controller/DB')
 const router = express.Router()
 
  
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     connexion.query('select *, upper(nom) as nom from apprenant  ORDER BY nom', (error, data) => {
        if(error){
             res.send('erreur');
        }else{
         
-           res.send(data)
+           res.json(data)
        }
     })
 })
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.get('/dashbord', (req, res) => {
     connexion.query('select (select count(*) from apprenant) as apprenant;', (error, data) => {
-        res.send(data)
+        res.json(data)
     })
 })
 
@@ -27,7 +27,7 @@ router.get('/:id_apprenant', (req, res) => {
     const id_apprenant = req.params.id_apprenant
     connexion.query('select * from apprenant where id_apprenant = ?',[id_apprenant],(error, data) => {
         console.log(id_apprenant);
-        res.send(data)
+        res.json(data)
     })
 })
 
