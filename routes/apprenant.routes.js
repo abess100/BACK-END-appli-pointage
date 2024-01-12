@@ -5,7 +5,11 @@ const router = express.Router()
  
 router.get('/', (req, res) => {
     connexion.query('select *, upper(nom) as nom from apprenant  ORDER BY nom', (error, data) => {
-        res.send(data)
+       if(error){
+            console.log(error);
+       }else{
+           res.json(data)
+       }
     })
 })
 
