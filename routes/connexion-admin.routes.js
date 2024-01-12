@@ -5,7 +5,7 @@ const connexion = require('../controller/DB')
 
 router.get('/', (req, res) => {
     connexion.query('select * from admin', (error, data) => {
-        // console.log(data);
+        console.log(data);
         res.send('bonjour  Mr admin')
     })
 })
@@ -16,19 +16,20 @@ router.post('/connexion', (req, res) => {
     let { nom, pwd } = req.body
     if (nom && pwd) {
         connexion.query('select * from admin where nom = ? ', [nom], (error, data) => {
+            console.log(data);
             if (data.length) {
                 if (data[0].pwd == pwd) {
-
-                    req.session.id_admin = data[0].id_admin
-                    res.send('/');
+                        console.log(data);
+                    // req.session.id_admin = data[0].id_admin
+                    res.render('ok');
 
                 } else {
 
                     res.json({ message:'mot de passe incorrect '});
                 }
             } else {
-
-                res.jon({message:'nom incorrect'})
+                console.log(data);
+                res.send('nom incorrect')
 
             }
         })
@@ -51,16 +52,16 @@ router.post('/déconnexion', (req, res) => {
 
 // fonction qui me permet de mettre une condition d'authentification de session sur une route
 
-const permission = (req, res, next ) =>{
-    if(!req.session.id_admin){
-        res.send('veillez vous connectez')
-    }else{
-        next()
-    }
-}
+// const permission = (req, res, next ) =>{
+//     if(!req.session.id_admin){
+//         res.send('veillez vous connectez')
+//     }else{
+//         next()
+//     }
+// }
 
 
 
 
 module.exports = router;
-module.exports = permission;
+// module.exports = permission;
