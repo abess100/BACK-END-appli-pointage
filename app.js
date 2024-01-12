@@ -27,7 +27,7 @@ app.use(session({
 
 app.get('/', (req, res) => {
     // res.send('bonjour')
-    res.send('bonjour')
+    res.send('application en cours de développement ')
     // console.log(req.session);
 })
 
